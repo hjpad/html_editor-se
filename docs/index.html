@@ -114,6 +114,12 @@
             }, 100);
         });
 
+        // A workaround for WebKit's selection issues.
+        // This ensures that the selection is properly recognized before the editor's command is executed.
+        editor.core.context.element.wysiwyg.addEventListener('touchend', function () {
+            editor.core.context.element.wysiwyg.focus();
+        });
+
     </script>
 
 </body>
