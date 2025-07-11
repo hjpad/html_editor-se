@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>SunEditor - Manual Responsive Toolbar</title>
+    <title>SunEditor - Final Working Example</title>
     <link href="https://cdn.jsdelivr.net/npm/suneditor@latest/dist/css/suneditor.min.css" rel="stylesheet">
     <style>
         body {
@@ -30,101 +30,91 @@
 
     <div class="container">
         <h2>SunEditor Demo</h2>
-        <p>This editor's toolbar is now controlled by JavaScript to ensure it is compact on mobile devices.</p>
+        <p>Toolbar wrapping is fixed, and iOS selection/insertion issues are now resolved.</p>
         <textarea id="editor"></textarea>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/suneditor@latest/dist/suneditor.min.js"></script>
     <script>
         // -- DEFINE TOOLBAR LAYOUTS --
-
-        // Full toolbar for desktop view
         const desktopToolbar = [
-            ['undo', 'redo'],
-            ['font', 'fontSize', 'formatBlock'],
-            ['paragraphStyle', 'blockquote'],
+            ['undo', 'redo'], ['font', 'fontSize', 'formatBlock'], ['paragraphStyle', 'blockquote'],
             ['bold', 'underline', 'italic', 'strike', 'subscript', 'superscript'],
-            ['fontColor', 'hiliteColor', 'textStyle'],
-            ['removeFormat'],
-            ['outdent', 'indent'],
-            ['align', 'horizontalRule', 'list', 'lineHeight'],
-            ['table', 'link', 'image', 'video'],
-            ['fullScreen', 'showBlocks', 'codeView'],
-            ['preview', 'print']
+            ['fontColor', 'hiliteColor', 'textStyle'], ['removeFormat'], ['outdent', 'indent'],
+            ['align', 'horizontalRule', 'list', 'lineHeight'], ['table', 'link', 'image', 'video'],
+            ['fullScreen', 'showBlocks', 'codeView'], ['preview', 'print']
         ];
 
-        // Compact, grouped toolbar for mobile view
         const mobileToolbar = [
             ['undo', 'redo'],
-            // Group 1: All text formatting
             [':r-Format-default.more_plus', 'font', 'fontSize', 'formatBlock', 'bold', 'underline', 'italic', 'fontColor', 'hiliteColor', 'removeFormat'],
-            // Group 2: All paragraph layout
             [':l-Paragraph-default.more_paragraph', 'paragraphStyle', 'blockquote', 'outdent', 'indent', 'align', 'list', 'lineHeight'],
-            // Group 3: All insertables
             [':i-Insert-default.more_plus', 'table', 'link', 'image', 'video', 'horizontalRule'],
-            // Group 4: View tools
             ['fullScreen', 'codeView']
         ];
 
         // -- EDITOR INITIALIZATION --
-
-        // Decide which toolbar to use based on initial screen width
         const isMobile = window.innerWidth < 768;
         
         const editor = SUNEDITOR.create('editor', {
-            // Set the initial buttonList based on the isMobile check
             buttonList: isMobile ? mobileToolbar : desktopToolbar,
-
             width: '100%',
             height: 'auto',
             minHeight: '250px',
             placeholder: 'Start writing here...',
             defaultTag: 'p',
             
-            // Callbacks for iOS focus issues
+            // **CRITICAL FIX FOR SELECTION ISSUES**
+            // These callbacks help maintain focus, especially on mobile.
             callBackSave: function () {
+                // When the editor saves, it can lose focus. This brings it back.
                 this.core.focus();
             },
             onImageUpload: function () {
+                // Explicitly focus the editor before the image upload dialog appears.
+                // This helps ensure the image is inserted at the correct cursor position.
                 this.core.focus();
             }
         });
 
-        // -- RESPONSIVE LOGIC --
-
-        // Function to switch toolbars
-        function setToolbar() {
-            if (window.innerWidth < 768) {
-                // If it's mobile view, and the current toolbar isn't the mobile one
-                if (editor.options.buttonList !== mobileToolbar) {
-                    editor.setOptions({ buttonList: mobileToolbar });
-                }
-            } else {
-                // If it's desktop view, and the current toolbar isn't the desktop one
-                if (editor.options.buttonList !== desktopToolbar) {
-                    editor.setOptions({ buttonList: desktopToolbar });
-                }
-            }
-        }
-
-        // Add a listener to the window resize event
-        // 'debounce' prevents the function from firing too rapidly
-        let resizeTimeout;
-        window.addEventListener('resize', () => {
-            clearTimeout(resizeTimeout);
-            resizeTimeout = setTimeout(setToolbar, 100);
-        });
-
-        // iOS-specific focus fix for selection bug
-        if (/iPhone|iPad/i.test(navigator.userAgent)) {
-            const wysiwyg = editor.core.context.element.wysiwyg;
-            if (wysiwyg) {
-                wysiwyg.addEventListener('touchend', (e) => {
+        // **RE-IMPLEMENTED IOS SELECTION FIX**
+        // This is the most important part for fixing the paragraph/image insertion bug.
+        // It applies to both iOS and can benefit Android in some cases.
+        function applyMobileFocusFix() {
+            const toolbar = editor.core.context.tool.bar;
+            if (toolbar) {
+                // We listen for a "touchend" event on the entire toolbar.
+                toolbar.addEventListener('touchend', (e) => {
+                    // When the touch ends (i.e., user lifts their finger),
+                    // we immediately refocus on the editor's writable area.
                     editor.core.focus();
                 });
             }
         }
+
+        // Apply the fix right after the editor is created.
+        applyMobileFocusFix();
+
+
+        // -- RESPONSIVE LOGIC TO SWITCH TOOLBARS --
+        let resizeTimeout;
+        window.addEventListener('resize', () => {
+            clearTimeout(resizeTimeout);
+            resizeTimeout = setTimeout(() => {
+                const currentWidth = window.innerWidth;
+                const isMobileView = currentWidth < 768;
+                const currentToolbar = editor.options.buttonList;
+
+                if (isMobileView && (currentToolbar !== mobileToolbar)) {
+                    editor.setOptions({ buttonList: mobileToolbar });
+                    applyMobileFocusFix(); // Re-apply the fix after rebuilding the toolbar
+                } else if (!isMobileView && (currentToolbar !== desktopToolbar)) {
+                    editor.setOptions({ buttonList: desktopToolbar });
+                }
+            }, 100);
+        });
+
     </script>
 
 </body>
-</html>```
+</html>
