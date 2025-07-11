@@ -3,27 +3,42 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>SunEditor Fixed Example</title>
+    <title>SunEditor Compact Mobile Toolbar</title>
     <link href="https://cdn.jsdelivr.net/npm/suneditor@latest/dist/css/suneditor.min.css" rel="stylesheet">
     <style>
-        /* Prevent auto-zooming on iOS by ensuring interactive elements have a sufficient font size. */
         body, textarea {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
             font-size: 16px;
+            margin: 0;
+            padding: 8px;
+            background-color: #f4f4f9;
+        }
+        .container {
+            max-width: 900px;
+            margin: 20px auto;
+            padding: 15px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
         }
         .sun-editor {
-            border: 1px solid #ccc;
-            border-radius: 8px;
+            border: 1px solid #ddd;
         }
     </style>
 </head>
 <body>
 
-    <textarea id="editor" style="width: 100%; height: 200px;"></textarea>
+    <div class="container">
+        <h2>SunEditor Demo</h2>
+        <p>A mobile-optimized text editor example. The toolbar below changes based on your screen size.</p>
+        <textarea id="editor"></textarea>
+    </div>
 
     <script src="https://cdn.jsdelivr.net/npm/suneditor@latest/dist/suneditor.min.js"></script>
-
     <script>
         const editor = SUNEDITOR.create('editor', {
+            // -- Desktop Toolbar (Default) --
+            // This is the full toolbar for larger screens.
             buttonList: [
                 ['undo', 'redo'],
                 ['font', 'fontSize', 'formatBlock'],
@@ -33,59 +48,63 @@
                 ['removeFormat'],
                 ['outdent', 'indent'],
                 ['align', 'horizontalRule', 'list', 'lineHeight'],
-                ['table', 'link', 'image', 'video', 'audio'],
+                ['table', 'link', 'image', 'video'],
                 ['fullScreen', 'showBlocks', 'codeView'],
-                ['preview', 'print'],
-                ['save', 'template'],
+                ['preview', 'print']
             ],
-            mediaAutoSelect: false,
+
             width: '100%',
             height: 'auto',
             minHeight: '250px',
-            placeholder: 'Start typing here...',
-
-            // By default, SunEditor creates a <p> tag when you press enter.
-            // This is standard for rich text editors.
+            placeholder: 'Start writing here...',
             defaultTag: 'p',
-
-            // This option helps in scenarios where focus is lost,
-            // which is common on mobile browsers.
+            
+            // Fix for iOS selection issues
             callBackSave: function () {
                 this.core.focus();
             },
-            
-            // Event listener for image uploads to ensure proper placement
             onImageUpload: function () {
-                // The editor's internal logic for image placement is generally robust,
-                // but ensuring focus is maintained helps prevent errors on iOS.
                 this.core.focus();
             },
-
-            // Responsive Toolbar for different screen sizes
+            
+            // -- Responsive, Grouped Toolbars for Mobile --
             responsiveToolbar: {
-                600: [
+                // -- Tablet View (< 768px) --
+                // A slightly more compact toolbar with some grouping.
+                768: [
                     ['undo', 'redo'],
-                    ['font', 'fontSize'],
-                    ['bold', 'underline', 'italic'],
-                    ['fontColor', 'hiliteColor'],
-                    ['align', 'list'],
-                    ['link', 'image'],
-                    ['fullScreen']
+                    // Grouping font-related options
+                    [':p-More Paragraph-default.more_paragraph', 'font', 'fontSize', 'formatBlock', 'paragraphStyle', 'blockquote'],
+                    // Grouping style options
+                    [':t-More Text-default.more_text', 'bold', 'underline', 'italic', 'strike', 'subscript', 'superscript', 'fontColor', 'hiliteColor', 'textStyle'],
+                    ['removeFormat'],
+                    ['align', 'horizontalRule', 'list', 'lineHeight'],
+                    ['table', 'link', 'image', 'video'],
+                    ['fullScreen', 'codeView']
                 ],
-                320: [
+                
+                // -- Phone View (< 480px) --
+                // A highly compact, grouped toolbar for small screens.
+                480: [
                     ['undo', 'redo'],
-                    ['bold', 'underline'],
-                    ['link']
+                    // Single button with a dropdown for all formatting
+                    [':r-More Rich-default.more_plus', 'font', 'fontSize', 'formatBlock', 'paragraphStyle', 'blockquote', 'bold', 'underline', 'italic', 'strike', 'subscript', 'superscript', 'fontColor', 'hiliteColor', 'textStyle', 'removeFormat'],
+                    // Single button for paragraph/layout options
+                    [':l-More Layout-default.more_paragraph', 'outdent', 'indent', 'align', 'horizontalRule', 'list', 'lineHeight'],
+                    // Single button for inserting objects
+                    [':i-Insert-default.more_plus', 'table', 'link', 'image', 'video'],
+                    // Essential view-changing tools
+                    ['fullScreen', 'codeView']
                 ]
             }
         });
 
-        // A workaround for WebKit's selection issues.
-        // This ensures that the selection is properly recognized before the editor's command is executed.
-        editor.core.context.element.wysiwyg.addEventListener('touchend', function () {
-            editor.core.context.element.wysiwyg.focus();
-        });
-
+        // iOS focus fix
+        if (/iPhone|iPad/i.test(navigator.userAgent)) {
+            editor.core.context.element.wysiwyg.addEventListener('touchend', (e) => {
+                editor.core.focus();
+            });
+        }
     </script>
 
 </body>
