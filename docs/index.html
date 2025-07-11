@@ -1,204 +1,70 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>SunEditor Mobile Example</title>
-
-    <link href="https://cdn.jsdelivr.net/npm/suneditor@latest/dist/css/suneditor.min.css" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/suneditor@latest/dist/css/suneditor-contents.min.css" rel="stylesheet"> 
-    
-    <link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.8.2/css/all.min.css" rel="stylesheet">
-
-    <style>
-        /* Basic reset for better consistency */
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
-
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0; /* Remove default body margin */
-            padding: 10px; /* Add some padding for overall content */
-            background-color: #f0f2f5; /* Light background for visual comfort */
-            color: #333;
-            -webkit-text-size-adjust: 100%; /* Prevent text zoom on orientation change */
-        }
-
-        .editor-container {
-            width: 100%; /* Make it full width on small screens */
-            max-width: 800px; /* Still constrain on larger screens */
-            margin: 0 auto;
-            border: 1px solid #ccc;
-            padding: 10px;
-            background-color: #fff;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-            border-radius: 8px; /* Slightly rounded corners */
-            overflow: hidden; /* Ensure content doesn't spill out */
-        }
-
-        h1 {
-            font-size: 1.5em; /* Adjust font size for mobile */
-            margin-bottom: 15px;
-            text-align: center;
-            color: #2c3e50;
-        }
-
-        /* Specific styling for the SunEditor wrapper if needed */
-        .sun-editor {
-            border: 1px solid #e0e0e0;
-            border-radius: 4px;
-            overflow: hidden; /* Important for toolbars on mobile */
-        }
-
-        /* Adjust SunEditor's toolbar height if it gets too tall on mobile */
-        .sun-editor .se-toolbar-wrapper {
-            padding: 5px;
-        }
-        .sun-editor .se-btn-module, .sun-editor .se-toolbar-module {
-            margin-bottom: 3px; /* Smaller margins for button groups */
-        }
-        .sun-editor .se-btn {
-            height: 32px; /* Slightly smaller buttons */
-            width: 32px;
-            min-width: 32px;
-        }
-        /* Make sure overflow is handled for the toolbar on smaller screens */
-        .sun-editor .se-toolbar {
-            flex-wrap: wrap; /* Allow toolbar items to wrap to next line */
-            justify-content: flex-start; /* Align items to the start */
-            max-height: none; /* Prevent fixed height cutting off wrapped buttons */
-        }
-
-
-        button {
-            display: block; /* Make button full width */
-            width: 100%; /* Full width for better tap target */
-            margin-top: 15px; /* More spacing */
-            padding: 12px 15px; /* Larger padding for easier tapping */
-            background-color: #007bff;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            font-size: 1em;
-            transition: background-color 0.2s ease;
-        }
-        button:hover {
-            background-color: #0056b3;
-        }
-        button:active {
-            background-color: #004085; /* Visual feedback on tap */
-        }
-
-        #output-content {
-            margin-top: 25px; /* More spacing */
-            padding: 15px;
-            border: 1px dashed #ddd;
-            background-color: #f9f9f9;
-            border-radius: 8px;
-            word-wrap: break-word; /* Ensure long words wrap */
-            overflow-x: auto; /* Allow horizontal scroll for pre tag content */
-        }
-        #output-content h3 {
-            font-size: 1.2em;
-            margin-bottom: 10px;
-            color: #2c3e50;
-        }
-
-        /* Responsive adjustments for very small screens if necessary */
-        @media (max-width: 480px) {
-            body {
-                padding: 5px; /* Less padding on very small screens */
-            }
-            .editor-container {
-                padding: 8px;
-                border-radius: 0; /* No rounded corners on tiny screens */
-                box-shadow: none; /* No shadow on tiny screens */
-            }
-            h1 {
-                font-size: 1.3em;
-            }
-            button {
-                padding: 10px 12px;
-                font-size: 0.95em;
-            }
-            #output-content {
-                padding: 10px;
-            }
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SunEditor Example</title>
+<link href="https://cdn.jsdelivr.net/npm/suneditor@latest/dist/css/suneditor.min.css" rel="stylesheet">
 </head>
 <body>
-    <div class="editor-container">
-        <h1>SunEditor Mobile Example</h1>
-        <textarea id="editor" style="height: 300px;">
-            <p>Hello, <strong>SunEditor</strong>!</p>
-            <p>This is a rich text editor running in a static HTML page, optimized for mobile.</p>
-            <ul>
-                <li>Item 1</li>
-                <li>Item 2</li>
-            </ul>
-            <p>Try rotating your device or resizing your browser window to see the responsiveness!</p>
-        </textarea>
-        <button id="getHtmlBtn">Get HTML Content</button>
-        <div id="output-content">
-            <h3>Editor Output:</h3>
-            <p><em>Content will appear here after clicking "Get HTML Content"</em></p>
-        </div>
-    </div>
+<textarea id="editor" style="width: 100%; height: 200px;"></textarea>
 
-    <script src="https://cdn.jsdelivr.net/npm/suneditor@latest/dist/suneditor.min.js"></script>
-    
-    <script>
-        const editorElement = document.getElementById('editor');
-        const getHtmlButton = document.getElementById('getHtmlBtn');
-        const outputContentDiv = document.getElementById('output-content');
-        let suneditorInstance; // To store the SunEditor instance
+<script src="https://cdn.jsdelivr.net/npm/suneditor@latest/dist/suneditor.min.js"></script>
 
-        document.addEventListener('DOMContentLoaded', function() {
-            suneditorInstance = SUNEDITOR.create(editorElement, {
-                // SunEditor has good default responsiveness for its toolbar.
-                // You might want to remove some less-used buttons for mobile for a cleaner look.
-                buttonList: [
-                    ['undo', 'redo'],
-                    ['bold', 'underline', 'italic', 'strike'],
-                    ['fontColor', 'hiliteColor'],
-                    ['removeFormat'],
-                    '/', // Line break for toolbar organization
-                    ['align', 'list'],
-                    ['link', 'image'],
-                    ['fullScreen', 'codeView'] // 'fullScreen' is great for mobile
-                    // Consider removing 'table', 'video', 'print', 'preview' if not critical for mobile
-                ],
-                // Example of adjusting options for mobile if needed
-                height: 'auto', // Allow height to adjust dynamically
-                minHeight: '200px', // Minimum height for the editor area
-                // setContents: '<p>This content was set via JavaScript during initialization.</p>',
-            });
+<script>
+    const editor = SUNEDITOR.create('editor', {
+        // All of the plugins are loaded in the "window.SUNEDITOR" object in dist/suneditor.min.js file
+        // Please refer to the documentation for more plugins
+        buttonList: [
+            ['undo', 'redo'],
+            ['font', 'fontSize', 'formatBlock'],
+            ['paragraphStyle', 'blockquote'],
+            ['bold', 'underline', 'italic', 'strike', 'subscript', 'superscript'],
+            ['fontColor', 'hiliteColor', 'textStyle'],
+            ['removeFormat'],
+            ['outdent', 'indent'],
+            ['align', 'horizontalRule', 'list', 'lineHeight'],
+            ['table', 'link', 'image', 'video', 'audio' /** ,'math' */], // You must add the 'katex' library at options to use the 'math' plugin.
+            /** ['imageGallery'] */ // You must add the "imageGalleryUrl".
+            ['fullScreen', 'showBlocks', 'codeView'],
+            ['preview', 'print'],
+            ['save', 'template'],
+        ],
+        // Responsive Toolbar
+        // More info: https://github.com/JiHong88/suneditor#responsive-toolbar
+        mediaAutoSelect: false,
+        width: '100%',
+        height: 'auto',
+        minHeight: '100px',
+        placeholder: 'Start typing here...',
 
-            getHtmlButton.addEventListener('click', function() {
-                if (suneditorInstance) {
-                    const htmlContent = suneditorInstance.getContents();
-                    // Using textContent for <pre> tag to display raw HTML without rendering it
-                    outputContentDiv.innerHTML = `<h3>Editor Output:</h3><pre>${escapeHTML(htmlContent)}</pre>`;
-                    console.log("Editor HTML Content:", htmlContent);
-                }
-            });
-
-            // Helper function to escape HTML for displaying raw HTML string
-            function escapeHTML(str) {
-                const div = document.createElement('div');
-                div.appendChild(document.createTextNode(str));
-                return div.innerHTML;
-            }
-
-            suneditorInstance.onChanged = function (contents, core) {
-                // console.log('Editor content changed:', contents);
-            };
-        });
-    </script>
+        // For mobile devices, you can customize the toolbar
+        // to have fewer buttons to save space.
+        // This is an example of a responsive toolbar.
+        // You can define different toolbars for different screen sizes.
+        // The first value is the screen size in pixels.
+        // The second value is the toolbar to display for that screen size.
+        // The order matters. The first matching size will be used.
+        responsiveToolbar: {
+            // When the screen size is less than 600px
+            600: [
+                ['undo', 'redo'],
+                ['font', 'fontSize'],
+                ['bold', 'underline', 'italic'],
+                ['fontColor', 'hiliteColor'],
+                ['align'],
+                ['list'],
+                ['link', 'image'],
+                ['fullScreen']
+            ],
+            // When the screen size is less than 320px
+            320: [
+                ['undo', 'redo'],
+                ['bold'],
+                ['link']
+            ]
+        }
+    });
+</script>
 </body>
 </html>
