@@ -1,70 +1,78 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>SunEditor Example</title>
-<link href="https://cdn.jsdelivr.net/npm/suneditor@latest/dist/css/suneditor.min.css" rel="stylesheet">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+    <title>SunEditor Example</title>
+    <link href="https://cdn.jsdelivr.net/npm/suneditor@latest/dist/css/suneditor.min.css" rel="stylesheet">
+    <style>
+        /* It is recommended to set a font-size of at least 16px to prevent auto-zooming on iOS. */
+        body, textarea {
+            font-size: 16px;
+        }
+    </style>
 </head>
 <body>
-<textarea id="editor" style="width: 100%; height: 200px;"></textarea>
 
-<script src="https://cdn.jsdelivr.net/npm/suneditor@latest/dist/suneditor.min.js"></script>
+    <textarea id="editor" style="width: 100%; height: 200px;"></textarea>
 
-<script>
-    const editor = SUNEDITOR.create('editor', {
-        // All of the plugins are loaded in the "window.SUNEDITOR" object in dist/suneditor.min.js file
-        // Please refer to the documentation for more plugins
-        buttonList: [
-            ['undo', 'redo'],
-            ['font', 'fontSize', 'formatBlock'],
-            ['paragraphStyle', 'blockquote'],
-            ['bold', 'underline', 'italic', 'strike', 'subscript', 'superscript'],
-            ['fontColor', 'hiliteColor', 'textStyle'],
-            ['removeFormat'],
-            ['outdent', 'indent'],
-            ['align', 'horizontalRule', 'list', 'lineHeight'],
-            ['table', 'link', 'image', 'video', 'audio' /** ,'math' */], // You must add the 'katex' library at options to use the 'math' plugin.
-            /** ['imageGallery'] */ // You must add the "imageGalleryUrl".
-            ['fullScreen', 'showBlocks', 'codeView'],
-            ['preview', 'print'],
-            ['save', 'template'],
-        ],
-        // Responsive Toolbar
-        // More info: https://github.com/JiHong88/suneditor#responsive-toolbar
-        mediaAutoSelect: false,
-        width: '100%',
-        height: 'auto',
-        minHeight: '100px',
-        placeholder: 'Start typing here...',
+    <script src="https://cdn.jsdelivr.net/npm/suneditor@latest/dist/suneditor.min.js"></script>
 
-        // For mobile devices, you can customize the toolbar
-        // to have fewer buttons to save space.
-        // This is an example of a responsive toolbar.
-        // You can define different toolbars for different screen sizes.
-        // The first value is the screen size in pixels.
-        // The second value is the toolbar to display for that screen size.
-        // The order matters. The first matching size will be used.
-        responsiveToolbar: {
-            // When the screen size is less than 600px
-            600: [
+    <script>
+        const editor = SUNEDITOR.create('editor', {
+            // All of the plugins are loaded in the "window.SUNEDITOR" object in dist/suneditor.min.js file
+            // Please refer to the documentation for more plugins
+            buttonList: [
                 ['undo', 'redo'],
-                ['font', 'fontSize'],
-                ['bold', 'underline', 'italic'],
-                ['fontColor', 'hiliteColor'],
-                ['align'],
-                ['list'],
-                ['link', 'image'],
-                ['fullScreen']
+                ['font', 'fontSize', 'formatBlock'],
+                ['paragraphStyle', 'blockquote'],
+                ['bold', 'underline', 'italic', 'strike', 'subscript', 'superscript'],
+                ['fontColor', 'hiliteColor', 'textStyle'],
+                ['removeFormat'],
+                ['outdent', 'indent'],
+                ['align', 'horizontalRule', 'list', 'lineHeight'],
+                ['table', 'link', 'image', 'video', 'audio' /** ,'math' */], // You must add the 'katex' library at options to use the 'math' plugin.
+                /** ['imageGallery'] */ // You must add the "imageGalleryUrl".
+                ['fullScreen', 'showBlocks', 'codeView'],
+                ['preview', 'print'],
+                ['save', 'template'],
             ],
-            // When the screen size is less than 320px
-            320: [
-                ['undo', 'redo'],
-                ['bold'],
-                ['link']
-            ]
-        }
-    });
-</script>
+            // Responsive Toolbar
+            // More info: https://github.com/JiHong88/suneditor#responsive-toolbar
+            mediaAutoSelect: false,
+            width: '100%',
+            height: 'auto',
+            minHeight: '100px',
+            placeholder: 'Start typing here...',
+
+            // For mobile devices, you can customize the toolbar
+            // to have fewer buttons to save space.
+            // This is an example of a responsive toolbar.
+            // You can define different toolbars for different screen sizes.
+            // The first value is the screen size in pixels.
+            // The second value is the toolbar to display for that screen size.
+            // The order matters. The first matching size will be used.
+            responsiveToolbar: {
+                // When the screen size is less than 600px
+                600: [
+                    ['undo', 'redo'],
+                    ['font', 'fontSize'],
+                    ['bold', 'underline', 'italic'],
+                    ['fontColor', 'hiliteColor'],
+                    ['align'],
+                    ['list'],
+                    ['link', 'image'],
+                    ['fullScreen']
+                ],
+                // When the screen size is less than 320px
+                320: [
+                    ['undo', 'redo'],
+                    ['bold'],
+                    ['link']
+                ]
+            }
+        });
+    </script>
+
 </body>
 </html>
