@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>SunEditor - Final Working Example</title>
+    <title>Editor demo - SunEditor</title>
     <link href="https://cdn.jsdelivr.net/npm/suneditor@latest/dist/css/suneditor.min.css" rel="stylesheet">
     <style>
         body {
@@ -29,8 +29,8 @@
 <body>
 
     <div class="container">
-        <h2>SunEditor Demo</h2>
-        <p>Toolbar wrapping is fixed, and iOS selection/insertion issues are now resolved.</p>
+        <h2>Editor demo - SunEditor</h2>
+        <p>Features: toolbar wrapping on mobile, iOS selection/insertion.</p>
         <textarea id="editor"></textarea>
     </div>
 
@@ -41,7 +41,7 @@
             ['undo', 'redo'], ['font', 'fontSize', 'formatBlock'], ['paragraphStyle', 'blockquote'],
             ['bold', 'underline', 'italic', 'strike', 'subscript', 'superscript'],
             ['fontColor', 'hiliteColor', 'textStyle'], ['removeFormat'], ['outdent', 'indent'],
-            ['align', 'horizontalRule', 'list', 'lineHeight'], ['table', 'link', 'image', 'video'],
+            ['align', 'horizontalRule', 'list', 'lineHeight'], ['table', 'link', 'image', 'video', 'audio'],
             ['fullScreen', 'showBlocks', 'codeView'], ['preview', 'print']
         ];
 
@@ -49,7 +49,7 @@
             ['undo', 'redo'],
             [':r-Format-default.more_plus', 'font', 'fontSize', 'formatBlock', 'bold', 'underline', 'italic', 'fontColor', 'hiliteColor', 'removeFormat'],
             [':l-Paragraph-default.more_paragraph', 'paragraphStyle', 'blockquote', 'outdent', 'indent', 'align', 'list', 'lineHeight'],
-            [':i-Insert-default.more_plus', 'table', 'link', 'image', 'video', 'horizontalRule'],
+            [':i-Insert-default.more_plus', 'table', 'link', 'image', 'video', 'audio', 'horizontalRule'],
             ['fullScreen', 'codeView']
         ];
 
