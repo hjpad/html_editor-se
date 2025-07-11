@@ -2,13 +2,17 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
-    <title>SunEditor Example</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>SunEditor Fixed Example</title>
     <link href="https://cdn.jsdelivr.net/npm/suneditor@latest/dist/css/suneditor.min.css" rel="stylesheet">
     <style>
-        /* It is recommended to set a font-size of at least 16px to prevent auto-zooming on iOS. */
+        /* Prevent auto-zooming on iOS by ensuring interactive elements have a sufficient font size. */
         body, textarea {
             font-size: 16px;
+        }
+        .sun-editor {
+            border: 1px solid #ccc;
+            border-radius: 8px;
         }
     </style>
 </head>
@@ -20,8 +24,6 @@
 
     <script>
         const editor = SUNEDITOR.create('editor', {
-            // All of the plugins are loaded in the "window.SUNEDITOR" object in dist/suneditor.min.js file
-            // Please refer to the documentation for more plugins
             buttonList: [
                 ['undo', 'redo'],
                 ['font', 'fontSize', 'formatBlock'],
@@ -31,47 +33,59 @@
                 ['removeFormat'],
                 ['outdent', 'indent'],
                 ['align', 'horizontalRule', 'list', 'lineHeight'],
-                ['table', 'link', 'image', 'video', 'audio' /** ,'math' */], // You must add the 'katex' library at options to use the 'math' plugin.
-                /** ['imageGallery'] */ // You must add the "imageGalleryUrl".
+                ['table', 'link', 'image', 'video', 'audio'],
                 ['fullScreen', 'showBlocks', 'codeView'],
                 ['preview', 'print'],
                 ['save', 'template'],
             ],
-            // Responsive Toolbar
-            // More info: https://github.com/JiHong88/suneditor#responsive-toolbar
             mediaAutoSelect: false,
             width: '100%',
             height: 'auto',
-            minHeight: '100px',
+            minHeight: '250px',
             placeholder: 'Start typing here...',
 
-            // For mobile devices, you can customize the toolbar
-            // to have fewer buttons to save space.
-            // This is an example of a responsive toolbar.
-            // You can define different toolbars for different screen sizes.
-            // The first value is the screen size in pixels.
-            // The second value is the toolbar to display for that screen size.
-            // The order matters. The first matching size will be used.
+            // By default, SunEditor creates a <p> tag when you press enter.
+            // This is standard for rich text editors.
+            defaultTag: 'p',
+
+            // This option helps in scenarios where focus is lost,
+            // which is common on mobile browsers.
+            callBackSave: function () {
+                this.core.focus();
+            },
+            
+            // Event listener for image uploads to ensure proper placement
+            onImageUpload: function () {
+                // The editor's internal logic for image placement is generally robust,
+                // but ensuring focus is maintained helps prevent errors on iOS.
+                this.core.focus();
+            },
+
+            // Responsive Toolbar for different screen sizes
             responsiveToolbar: {
-                // When the screen size is less than 600px
                 600: [
                     ['undo', 'redo'],
                     ['font', 'fontSize'],
                     ['bold', 'underline', 'italic'],
                     ['fontColor', 'hiliteColor'],
-                    ['align'],
-                    ['list'],
+                    ['align', 'list'],
                     ['link', 'image'],
                     ['fullScreen']
                 ],
-                // When the screen size is less than 320px
                 320: [
                     ['undo', 'redo'],
-                    ['bold'],
+                    ['bold', 'underline'],
                     ['link']
                 ]
             }
         });
+
+        // A workaround for WebKit's selection issues.
+        // This ensures that the selection is properly recognized before the editor's command is executed.
+        editor.core.context.element.wysiwyg.addEventListener('touchend', function () {
+            editor.core.context.element.wysiwyg.focus();
+        });
+
     </script>
 
 </body>
