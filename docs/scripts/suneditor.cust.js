@@ -47,8 +47,9 @@ const mobileToolbar = [
     "video",
     "audio",
     "horizontalRule",
+    "codeView",
   ],
-  ["fullScreen", "codeView"],
+  ["fullScreen"],
 ];
 
 // -- EDITOR INITIALIZATION --
@@ -139,6 +140,25 @@ function loadContentFromFile(fileName) {
                             <li>Try out different formatting options.</li>
                             <li>Experiment with inserting images or links.</li>
                         </ul>
+                        <p>                                                </p>
+                        <p><br>
+                        </p>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+                        <p><br>
+                        </p>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+
+                        <p><br>
+                        </p>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. </p>
+                        <p><br>
+                        </p>
+                        <p>                       Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+                        <p><br>
+                        </p>
+                        <p><br>
+                        </p>
+                        <p>                    </p>
                     `;
       editor.setContents(fallbackContent);
     });
@@ -148,62 +168,4 @@ function loadContentFromFile(fileName) {
 editor.onload = function (core) {
   console.log("Attempting to load content file...");
   loadContentFromFile("content.html");
-
-  // Add toolbar fixing functionality
-  const toolbar = core.context.element.toolbar;
-  const topArea = core.context.element.topArea;
-  let isToolbarFixed = false;
-
-  function fixToolbar() {
-    if (!isToolbarFixed) {
-      const toolbarRect = toolbar.getBoundingClientRect();
-      const topAreaRect = topArea.getBoundingClientRect();
-
-      toolbar.style.position = "fixed";
-      toolbar.style.top = "0";
-      toolbar.style.left = `${topAreaRect.left}px`;
-      toolbar.style.width = `${topAreaRect.width}px`;
-      toolbar.style.zIndex = "1000";
-      topArea.style.paddingTop = `${toolbarRect.height}px`;
-
-      isToolbarFixed = true;
-    }
-  }
-
-  function unfixToolbar() {
-    if (isToolbarFixed) {
-      toolbar.style.position = "";
-      toolbar.style.top = "";
-      toolbar.style.left = "";
-      toolbar.style.width = "";
-      toolbar.style.zIndex = "";
-      topArea.style.paddingTop = "";
-
-      isToolbarFixed = false;
-    }
-  }
-
-  // Fix toolbar when editor is focused
-  core.context.element.wysiwyg.addEventListener("focus", fixToolbar);
-
-  // Unfix toolbar when editor loses focus
-  core.context.element.wysiwyg.addEventListener("blur", unfixToolbar);
-
-  // Handle scroll events
-  window.addEventListener("scroll", () => {
-    if (document.activeElement === core.context.element.wysiwyg) {
-      fixToolbar();
-    } else {
-      unfixToolbar();
-    }
-  });
-
-  // Handle resize events
-  window.addEventListener("resize", () => {
-    if (isToolbarFixed) {
-      const topAreaRect = topArea.getBoundingClientRect();
-      toolbar.style.left = `${topAreaRect.left}px`;
-      toolbar.style.width = `${topAreaRect.width}px`;
-    }
-  });
 };
