@@ -47,8 +47,9 @@ const mobileToolbar = [
     "video",
     "audio",
     "horizontalRule",
+    "codeView",
   ],
-  ["fullScreen", "codeView"],
+  ["fullScreen"],
 ];
 
 // -- EDITOR INITIALIZATION --
@@ -133,12 +134,33 @@ function loadContentFromFile(fileName) {
       // Fallback content
       const fallbackContent = `
                         <h1>Welcome to SunEditor</h1>
+                        <p> </p>
                         <p>This is a fallback content. When running on a server, this will be replaced with content from the file.</p>
+                        <p> </p>
                         <ul>
-                            <li>You can edit this content.</li>
-                            <li>Try out different formatting options.</li>
-                            <li>Experiment with inserting images or links.</li>
+                          <li>You can edit this content.</li>
+                          <li>Try out different formatting options.</li>
+                          <li>Experiment with inserting images or links.</li>
                         </ul>
+                        <p>                                                </p>
+                        <p><br>
+                        </p>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+                        <p><br>
+                        </p>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+
+                        <p><br>
+                        </p>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. </p>
+                        <p><br>
+                        </p>
+                        <p>                       Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+                        <p><br>
+                        </p>
+                        <p><br>
+                        </p>
+                        <p>                    </p>
                     `;
       editor.setContents(fallbackContent);
     });
