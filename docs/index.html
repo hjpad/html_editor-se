@@ -30,7 +30,7 @@
 
     <div class="container">
         <h2>Editor demo - SunEditor</h2>
-        <p>Features: toolbar wrapping on mobile, iOS selection/insertion.</p>
+        <p>Features: toolbar wrapping on mobile, iOS selection/insertion, load content from file.</p>
         <textarea id="editor"></textarea>
     </div>
 
@@ -119,6 +119,65 @@
         editor.core.context.element.wysiwyg.addEventListener('touchend', function () {
             editor.core.context.element.wysiwyg.focus();
         });
+
+        function loadContentFromFile(fileName) {
+            fetch(`assets/${fileName}`)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error(`HTTP error! status: ${response.status}`);
+                    }
+                    return response.text();
+                })
+                .then(html => {
+                    editor.setContents(html);
+                })
+                .catch(error => {
+                    console.error('Error loading content:', error);
+                    editor.setContents(`<p>Error loading content: ${error.message}. Please try again later.</p>`);
+                });
+        }
+
+        // function loadContentFromFile() {
+        //     var xhr = new XMLHttpRequest();
+        //     xhr.onreadystatechange = function() {
+        //         if (xhr.readyState === 4) {
+        //             if (xhr.status === 200) {
+        //                 editor.setContents(xhr.responseText);
+        //             } else {
+        //                 console.error('Error loading content:', xhr.status, xhr.statusText);
+        //                 editor.setContents(`<p>Error loading content: ${xhr.status} ${xhr.statusText}. Please try again later.</p>`);
+        //             }
+        //         }
+        //     };
+        //     xhr.open('GET', 'assets/content.html', true);
+        //     xhr.send();
+        // }
+
+        // const loadContentFromFile = async (fileName) => {
+        //     // alert(fileName);
+        //     try {
+        //         const response = await fetch(`assets/${fileName}`);
+        //         alert("a");
+        //         if (!response.ok) {
+        //             throw new Error(`HTTP error! status: ${response.status}`);
+        //         }
+        //         const contentText = await response.text();
+        //         alert("a");
+        //         alert(contentText);
+                
+        //         editor.setContents(contentText);
+
+        //     } catch (error) {
+        //         console.error('Error loading markdown file:', error);
+        //         contentViewElement.innerHTML = `<p class="error">Sorry, could not load the file: ${fileName}. Please check the console for details.</p>`;
+        //     }
+        // };
+
+        // Load content after editor initialization
+        editor.onload = function (core) {
+            console.log('Attempting to load content file...');
+            loadContentFromFile('content.html');
+        };
 
     </script>
 
