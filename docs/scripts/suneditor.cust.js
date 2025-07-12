@@ -171,3 +171,63 @@ editor.onload = function (core) {
   console.log("Attempting to load content file...");
   loadContentFromFile("content.html");
 };
+
+document.addEventListener('DOMContentLoaded', function() {
+    const editor = SUNEDITOR.create('editor', {
+        // ... your existing editor configuration ...
+    });
+
+    let toolbar = null;
+    let toolbarHeight = 0;
+    let isToolbarFixed = false;
+
+    editor.onload = function(core) {
+        toolbar = core.context.element.toolbar;
+        toolbarHeight = toolbar.offsetHeight;
+
+        // Initial check for toolbar position
+        checkToolbarPosition();
+
+        // Add scroll event listener
+        window.addEventListener('scroll', checkToolbarPosition);
+
+        // Add resize event listener to recalculate toolbar height if needed
+        window.addEventListener('resize', function() {
+            toolbarHeight = toolbar.offsetHeight;
+            checkToolbarPosition();
+        });
+    };
+
+    function checkToolbarPosition() {
+        if (!toolbar) return;
+
+        const editorRect = editor.core.context.element.topArea.getBoundingClientRect();
+        const shouldFixToolbar = editorRect.top < 0 && editorRect.bottom > toolbarHeight;
+
+        if (shouldFixToolbar && !isToolbarFixed) {
+            fixToolbar();
+        } else if (!shouldFixToolbar && isToolbarFixed) {
+            unfixToolbar();
+        }
+    }
+
+    function fixToolbar() {
+        toolbar.style.position = 'fixed';
+        toolbar.style.top = '0';
+        toolbar.style.left = `${editor.core.context.element.topArea.getBoundingClientRect().left}px`;
+        toolbar.style.width = `${editor.core.context.element.topArea.offsetWidth}px`;
+        toolbar.style.zIndex = '1000';
+        editor.core.context.element.topArea.style.paddingTop = `${toolbarHeight}px`;
+        isToolbarFixed = true;
+    }
+
+    function unfixToolbar() {
+        toolbar.style.position = '';
+        toolbar.style.top = '';
+        toolbar.style.left = '';
+        toolbar.style.width = '';
+        toolbar.style.zIndex = '';
+        editor.core.context.element.topArea.style.paddingTop = '';
+        isToolbarFixed = false;
+    }
+});
