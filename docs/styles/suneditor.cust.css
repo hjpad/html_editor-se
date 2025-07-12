@@ -34,3 +34,42 @@ body {
             margin-block-start: 0.5em;
             margin-block-end: 0.5em;
         }
+
+        
+        /* Add these styles to make the toolbar sticky on mobile */
+        @media screen and (max-width: 767px) {
+            .sun-editor .se-toolbar {
+                position: sticky;
+                top: 0;
+                z-index: 1000;
+                background-color: #fff; /* Ensure the background is solid */
+                border-bottom: 1px solid #e1e1e1; /* Add a border for visual separation */
+            }
+        
+            /* Ensure the toolbar shadow is also sticky */
+            .sun-editor .se-toolbar-shadow {
+                position: sticky;
+                top: 0;
+                z-index: 999;
+            }
+        
+            /* Adjust the editor area to account for the sticky toolbar */
+            .sun-editor .se-wrapper {
+                padding-top: 10px;
+            }
+        }
+        
+        /* Improve toolbar button visibility on mobile */
+        /* @media screen and (max-width: 767px) {
+            .sun-editor .se-btn-tray {
+                white-space: nowrap;
+                overflow-x: auto;
+                -webkit-overflow-scrolling: touch;
+                padding-bottom: 5px;
+            }
+        
+            .sun-editor .se-btn {
+                display: inline-block;
+                vertical-align: top;
+            }
+        } */
