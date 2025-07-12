@@ -1,7 +1,7 @@
 {
   "name": "html_editor-se",
-  "short_name": "Editor App",
-  "description": "Editor Demo - SunEditor",
+  "short_name": "html_editor-se",
+  "description": "html_editor-se",
   "icons": [
     {
       "src": "images/favicons/android-chrome-192x192.png",
