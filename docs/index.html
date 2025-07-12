@@ -16,7 +16,8 @@
 
     <link rel="manifest" href="site.webmanifest">
 
-    <link href="https://cdn.jsdelivr.net/npm/suneditor@latest/dist/css/suneditor.min.css" rel="stylesheet">
+    <!-- <link href="https://cdn.jsdelivr.net/npm/suneditor@latest/dist/css/suneditor.min.css" rel="stylesheet"> -->
+    <link href="styles/suneditor.min.css" rel="stylesheet">
     <style>
         body {
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
@@ -35,6 +36,14 @@
         }
         .sun-editor {
             border: 1px solid #ddd;
+        }
+        /* Custom styles to override SunEditor defaults */
+        .sun-editor .se-wrapper {
+            font-size: 18px; /* Increase default text size */
+        }
+        .sun-editor .se-wrapper p {
+            margin: 0; /* Remove default paragraph margin */
+            line-height: 1; /* Set row spacing to 1 */
         }
     </style>
 </head>
@@ -148,42 +157,6 @@
                     editor.setContents(`<p>Error loading content: ${error.message}. Please try again later.</p>`);
                 });
         }
-
-        // function loadContentFromFile() {
-        //     var xhr = new XMLHttpRequest();
-        //     xhr.onreadystatechange = function() {
-        //         if (xhr.readyState === 4) {
-        //             if (xhr.status === 200) {
-        //                 editor.setContents(xhr.responseText);
-        //             } else {
-        //                 console.error('Error loading content:', xhr.status, xhr.statusText);
-        //                 editor.setContents(`<p>Error loading content: ${xhr.status} ${xhr.statusText}. Please try again later.</p>`);
-        //             }
-        //         }
-        //     };
-        //     xhr.open('GET', 'assets/content.html', true);
-        //     xhr.send();
-        // }
-
-        // const loadContentFromFile = async (fileName) => {
-        //     // alert(fileName);
-        //     try {
-        //         const response = await fetch(`assets/${fileName}`);
-        //         alert("a");
-        //         if (!response.ok) {
-        //             throw new Error(`HTTP error! status: ${response.status}`);
-        //         }
-        //         const contentText = await response.text();
-        //         alert("a");
-        //         alert(contentText);
-                
-        //         editor.setContents(contentText);
-
-        //     } catch (error) {
-        //         console.error('Error loading markdown file:', error);
-        //         contentViewElement.innerHTML = `<p class="error">Sorry, could not load the file: ${fileName}. Please check the console for details.</p>`;
-        //     }
-        // };
 
         // Load content after editor initialization
         editor.onload = function (core) {
