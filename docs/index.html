@@ -16,7 +16,6 @@
 
     <link rel="manifest" href="site.webmanifest">
 
-    <!-- <link href="https://cdn.jsdelivr.net/npm/suneditor@latest/dist/css/suneditor.min.css" rel="stylesheet"> -->
     <link href="styles/suneditor.min.css" rel="stylesheet">
     <style>
         body {
@@ -37,13 +36,21 @@
         .sun-editor {
             border: 1px solid #ddd;
         }
-        /* Custom styles to override SunEditor defaults */
-        .sun-editor .se-wrapper {
-            font-size: 18px; /* Increase default text size */
+        /* .sun-editor-common textarea {
+            font-size: 16px;
+            line-height: 1.2px;
+        } */
+        .sun-editor-editable {
+            font-size: 16px;
+            line-height: 1.25;
         }
-        .sun-editor .se-wrapper p {
-            margin: 0; /* Remove default paragraph margin */
-            line-height: 1; /* Set row spacing to 1 */
+        .sun-editor-editable p {
+            display: block;
+            margin: 0 0 4px;
+        }
+        .sun-editor-editable ol, .sun-editor-editable ul {
+            margin-block-start: 0.5em;
+            margin-block-end: 0.5em;
         }
     </style>
 </head>
@@ -154,7 +161,17 @@
                 })
                 .catch(error => {
                     console.error('Error loading content:', error);
-                    editor.setContents(`<p>Error loading content: ${error.message}. Please try again later.</p>`);
+                    // Fallback content
+                    const fallbackContent = `
+                        <h1>Welcome to SunEditor</h1>
+                        <p>This is a fallback content. When running on a server, this will be replaced with content from the file.</p>
+                        <ul>
+                            <li>You can edit this content.</li>
+                            <li>Try out different formatting options.</li>
+                            <li>Experiment with inserting images or links.</li>
+                        </ul>
+                    `;
+                    editor.setContents(fallbackContent);
                 });
         }
 
