@@ -13,6 +13,7 @@ body {
 }
 
 .editor-container {
+  position: fixed;
   height: calc(100vh - 8px);
   margin: 0px;
   padding: 4px;
