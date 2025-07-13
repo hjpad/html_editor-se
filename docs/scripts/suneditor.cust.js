@@ -170,22 +170,33 @@ editor.onload = function (core) {
   loadContentFromFile("content.html");
 };
 
-
-let height = window.visualViewport.height;
 const viewport = window.visualViewport;
+let height = viewport.height;
+
+function isMobileDevice() {
+  return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+}
+
+if (isMobileDevice()) {
+  // For mobile devices, use the maximum of inner height and viewport height
+  height = Math.max(window.innerHeight, viewport.height);
+} else {
+  // For desktop, just use the viewport height
+  height = viewport.height;
+}
+
 const editorContainer = document.getElementsByClassName("editor-container")[0];
-const seWrapper = document.getElementsByClassName("sun-editor")[0].querySelector('.se-wrapper')
+const seWrapper = document
+  .getElementsByClassName("sun-editor")[0]
+  .querySelector(".se-wrapper");
 
 window.visualViewport.addEventListener("resize", resizeHandler);
 
 function resizeHandler() {
-  if (!/iPhone|iPad|iPod/.test(window.navigator.userAgent)) {
-    height = viewport.height;
-  }
   // button.style.bottom = `${height - viewport.height + 10}px`;
 
-  editorContainer.style.height = `${height - viewport.height - 8}px`;
-  seWrapper.style.height = `${height - viewport.height - 48}px`;
+  editorContainer.style.height = `${viewport.height - 8}px`;
+  seWrapper.style.height = `${viewport.height - 48}px`;
 
   console.log("Height: ", height, " viewport.height", viewport.height);
   editor.setContents(`
