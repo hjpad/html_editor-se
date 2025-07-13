@@ -10,7 +10,9 @@ const desktopToolbar = [
   ["outdent", "indent"],
   ["align", "horizontalRule", "list", "lineHeight"],
   ["table", "link", "image", "video", "audio"],
-  ["fullScreen", "showBlocks", "codeView"],
+  [
+    // "fullScreen", 
+    "showBlocks", "codeView"],
   ["preview", "print"],
 ];
 
@@ -47,9 +49,11 @@ const mobileToolbar = [
     "video",
     "audio",
     "horizontalRule",
-    "codeView",
   ],
-  ["fullScreen"],
+  [
+    "codeView",
+    // "fullScreen",
+  ],
 ];
 
 // -- EDITOR INITIALIZATION --
@@ -170,8 +174,11 @@ editor.onload = function (core) {
   loadContentFromFile("content.html");
 };
 
+
+
 const viewport = window.visualViewport;
 let height = viewport.height;
+let device = "Desktop";
 
 function isMobileDevice() {
   return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
@@ -204,6 +211,7 @@ function resizeHandler() {
     <p><strong>Initial Height:</strong> ${height}px</p>
     <p><strong>Current Viewport Height:</strong> ${viewport.height}px</p>
     <p><strong>Difference:</strong> ${height - viewport.height}px</p>
+    <p><strong>Device:</strong> ${navigator.userAgent}</p>
     <p><br>
     </p>
     <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et doloremagna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodoconsequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. <p>
