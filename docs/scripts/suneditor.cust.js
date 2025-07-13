@@ -273,21 +273,16 @@ function loadContentFromFile(fileName) {
                             </tr>
                           </tbody>
                         </table>
-                        
                         <h2>Links</h2>
                         <p>You can add <a href="https://github.com/JiHong88/SunEditor" target="_blank">links to external websites</a>.</p>
-                        
                         <h2>Images</h2>
                         <p>You can insert images:</p>
                         <img src="https://via.placeholder.com/300x200" alt="Placeholder Image" style="max-width: 100%; height: auto;">
-                        
                         <h2>Code View</h2>
                         <p>SunEditor also provides a code view for those who prefer to work directly with HTML:</p>
                         <pre><code>&lt;p&gt;This is a code block. You can switch to code view to edit HTML directly.&lt;/p&gt;</code></pre>
-                        
                         <h2>Experiment!</h2>
                         <p>Feel free to edit this content, try out different formatting options, and explore all the features SunEditor has to offer!</p>
-
                         <p><br>
                         </p>
                         <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
