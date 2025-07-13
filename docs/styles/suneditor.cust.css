@@ -1,5 +1,5 @@
 html {
-    height: 100%;
+  height: 100%;
 }
 
 body {
@@ -7,20 +7,20 @@ body {
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
     "Helvetica Neue", Arial, sans-serif;
   font-size: 16px; /* Prevents iOS auto-zoom */
-  margin: 0;
-  padding: 4px;
+  margin: 0px;
+  padding: 0px;
   background-color: #f4f4f9;
 }
 
-.container {
-    height: 500px;
-    overflow-y: hidden;
+.editor-container {
+  height: calc(100vh - 8px);
+  margin: 0px;
+  padding: 4px;
+  overflow-y: hidden;
 }
 
 /* .sun-editor {
-  border: 1px solid #ddd;
-  height: calc(100% - 8px);
-  overflow-y: auto;
+  height: calc(100vh - 0px);
 } */
 
 /* #suneditor_editor {
@@ -43,13 +43,9 @@ body {
 } */
 
 .sun-editor .se-wrapper {
-  height: calc(400px);
+  height: calc(100vh - 68px);
   overflow-y: auto;
 }
-
-
-
-
 
 .sun-editor-editable {
   font-size: 16px;

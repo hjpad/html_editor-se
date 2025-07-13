@@ -173,6 +173,8 @@ editor.onload = function (core) {
 
 let height = window.visualViewport.height;
 const viewport = window.visualViewport;
+const editorContainer = document.getElementsByClassName("editor-container")[0];
+const seWrapper = document.getElementsByClassName("sun-editor")[0].querySelector('.se-wrapper')
 
 window.visualViewport.addEventListener("resize", resizeHandler);
 
@@ -181,6 +183,10 @@ function resizeHandler() {
     height = viewport.height;
   }
   // button.style.bottom = `${height - viewport.height + 10}px`;
+
+  editorContainer.style.height = `${height - viewport.height - 18}px`;
+  seWrapper.style.height = `${height - viewport.height - 88}px`;
+
   console.log("Height: ", height, " viewport.height", viewport.height);
   editor.setContents(`
     <h3>Viewport Information:</h3>
