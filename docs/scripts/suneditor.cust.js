@@ -198,57 +198,75 @@ function loadContentFromFile(fileName) {
       // Fallback content
       const fallbackContent = `
                         <h1>Text editor demo - SunEditor</h1>
-                        
-                        <p>This is a comprehensive demonstration of SunEditor's capabilities. Feel free to experiment with the various formatting options and features available.</p>
-                        
+                        <p>
+                          This is a comprehensive demonstration of SunEditor's capabilities. Feel free
+                          to experiment with the various formatting options and features available.
+                        </p>
                         <h2>Text Formatting</h2>
-                        <p>You can make text <strong>bold</strong>, <em>italic</em>, <u>underlined</u>, or <strike>strikethrough</strike>. You can also use <sup>superscript</sup> and <sub>subscript</sub>.</p>
-                        
+                        <p>
+                          You can make text <strong>bold</strong>, <em>italic</em>, <u>underlined</u>,
+                          or <strike>strikethrough</strike>. You can also use <sup>superscript</sup> and
+                          <sub>subscript</sub>.
+                        </p>
                         <h2>Lists</h2>
-                        <h3>Unordered List:</h3>
-                        <ul>
-                            <li>First item</li>
-                            <li>Second item</li>
-                            <li>Third item</li>
-                        </ul>
-                        
-                        <h3>Ordered List:</h3>
-                        <ol>
-                            <li>First item</li>
-                            <li>Second item</li>
-                            <li>Third item</li>
-                        </ol>
-                        
-                        <h2>Text Alignment</h2>
-                        <p style="text-align: left;">This text is left-aligned.</p>
-                        <p style="text-align: center;">This text is center-aligned.</p>
-                        <p style="text-align: right;">This text is right-aligned.</p>
-                        <p style="text-align: justify;">This text is justified. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-                        
-                        <h2>Blockquote</h2>
-                        <blockquote>This is a blockquote. It can be used to highlight important information or quotes.</blockquote>
-                        
+                          <h3>Unordered List:</h3>
+                          First item
+                          Second item
+                          Third item
+                          <h3>Ordered List:</h3>
+                          First item
+                          Second item
+                          Third item
                         <h2>Table</h2>
-                        <table style="border-collapse: collapse; width: 100%;">
-                            <thead>
-                                <tr>
-                                    <th style="border: 1px solid black; padding: 8px;">Header 1</th>
-                                    <th style="border: 1px solid black; padding: 8px;">Header 2</th>
-                                    <th style="border: 1px solid black; padding: 8px;">Header 3</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td style="border: 1px solid black; padding: 8px;">Row 1, Cell 1</td>
-                                    <td style="border: 1px solid black; padding: 8px;">Row 1, Cell 2</td>
-                                    <td style="border: 1px solid black; padding: 8px;">Row 1, Cell 3</td>
-                                </tr>
-                                <tr>
-                                    <td style="border: 1px solid black; padding: 8px;">Row 2, Cell 1</td>
-                                    <td style="border: 1px solid black; padding: 8px;">Row 2, Cell 2</td>
-                                    <td style="border: 1px solid black; padding: 8px;">Row 2, Cell 3</td>
-                                </tr>
-                            </tbody>
+                        <table>
+                          <thead>
+                            <tr>
+                              <th>
+                                <div>Header A</div>
+                              </th>
+                              <th>
+                                <div>Header B</div>
+                              </th>
+                              <th>
+                                <div>Header C</div>
+                              </th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <tr>
+                              <td>
+                                <div>A1</div>
+                              </td>
+                              <td>
+                                <div>B1</div>
+                              </td>
+                              <td>
+                                <div>C1</div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <div>A2</div>
+                              </td>
+                              <td>
+                                <div>B2</div>
+                              </td>
+                              <td>
+                                <div>C2</div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <div>A3</div>
+                              </td>
+                              <td>
+                                <div>B3</div>
+                              </td>
+                              <td>
+                                <div>C3</div>
+                              </td>
+                            </tr>
+                          </tbody>
                         </table>
                         
                         <h2>Links</h2>
