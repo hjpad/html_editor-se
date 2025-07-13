@@ -169,3 +169,40 @@ editor.onload = function (core) {
   console.log("Attempting to load content file...");
   loadContentFromFile("content.html");
 };
+
+
+function adjustToolbarPosition() {
+    const toolbar = document.querySelector('.se-toolbar');
+    const editor = document.querySelector('.sun-editor');
+    
+    if (toolbar && editor) {
+        const editorRect = editor.getBoundingClientRect();
+        toolbar.style.top = `${editorRect.top}px`;
+        toolbar.style.left = `${editorRect.left}px`;
+        toolbar.style.width = `${editorRect.width}px`;
+    }
+}
+
+// Call this function when the page loads and when the window resizes
+window.addEventListener('load', adjustToolbarPosition);
+window.addEventListener('resize', adjustToolbarPosition);
+
+// For iOS devices, we need to listen for the 'orientationchange' event
+window.addEventListener('orientationchange', () => {
+    setTimeout(adjustToolbarPosition, 100);
+});
+
+
+let lastViewportHeight = window.innerHeight;
+
+function checkForKeyboardChange() {
+    const currentViewportHeight = window.innerHeight;
+    if (currentViewportHeight !== lastViewportHeight) {
+        // Viewport height has changed, likely due to keyboard
+        adjustToolbarPosition();
+        lastViewportHeight = currentViewportHeight;
+    }
+}
+
+// Check for keyboard changes every 100ms
+setInterval(checkForKeyboardChange, 100);
