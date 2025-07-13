@@ -170,3 +170,39 @@ editor.onload = function (core) {
   loadContentFromFile("content.html");
 };
 
+
+let height = window.visualViewport.height;
+const viewport = window.visualViewport;
+
+window.visualViewport.addEventListener("resize", resizeHandler);
+
+function resizeHandler() {
+  if (!/iPhone|iPad|iPod/.test(window.navigator.userAgent)) {
+    height = viewport.height;
+  }
+  // button.style.bottom = `${height - viewport.height + 10}px`;
+  console.log("Height: ", height, " viewport.height", viewport.height);
+  editor.setContents(`
+    <h3>Viewport Information:</h3>
+    <p><strong>Initial Height:</strong> ${height}px</p>
+    <p><strong>Current Viewport Height:</strong> ${viewport.height}px</p>
+    <p><strong>Difference:</strong> ${height - viewport.height}px</p>
+    <p><br>
+    </p>
+    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et doloremagna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodoconsequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. <p>
+    <p><br>
+    </p>
+    <p>                       Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod temporincididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laborisnisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillumdolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officiadeserunt mollit anim id est laborum.</p>
+    <p><br>
+    </p>
+    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et doloremagna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodoconsequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. <p>
+    <p><br>
+    </p>
+    <p>                       Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod temporincididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laborisnisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillumdolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officiadeserunt mollit anim id est laborum.</p>
+    <p><br>
+    </p>
+    <p><br>
+    </p>
+    <p>                    </p>
+  `);
+}

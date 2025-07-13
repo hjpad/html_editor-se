@@ -12,11 +12,16 @@ body {
   background-color: #f4f4f9;
 }
 
-.sun-editor .se-container {
+.container {
+    height: 500px;
+    overflow-y: hidden;
+}
+
+/* .sun-editor {
   border: 1px solid #ddd;
   height: calc(100% - 8px);
-  overflow-y: hidden;
-}
+  overflow-y: auto;
+} */
 
 /* #suneditor_editor {
   border: 1px solid #ddd;
@@ -24,23 +29,27 @@ body {
   overflow-y: hidden;
 } */
 
-.se-container {
+/* .se-container {
   height: calc(100% - 8px);
   overflow-y: hidden;
-}
+} */
 
-.se-toolbar,
+/* .se-toolbar,
 .sun-editor-common {
   position: sticky;
   top: 0;
   z-index: 1000;
   background-color: #fff;
-}
+} */
 
 .sun-editor .se-wrapper {
-  height: calc(100% - 388px);
+  height: calc(400px);
   overflow-y: auto;
 }
+
+
+
+
 
 .sun-editor-editable {
   font-size: 16px;
