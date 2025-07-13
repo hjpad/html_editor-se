@@ -196,7 +196,7 @@ function resizeHandler() {
   // button.style.bottom = `${height - viewport.height + 10}px`;
 
   editorContainer.style.height = `${viewport.height - 8}px`;
-  seWrapper.style.height = `${viewport.height - 48}px`;
+  seWrapper.style.height = `${viewport.height - 68}px`;
 
   console.log("Height: ", height, " viewport.height", viewport.height);
   editor.setContents(`
