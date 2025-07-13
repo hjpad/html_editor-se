@@ -11,8 +11,10 @@ const desktopToolbar = [
   ["align", "horizontalRule", "list", "lineHeight"],
   ["table", "link", "image", "video", "audio"],
   [
-    // "fullScreen", 
-    "showBlocks", "codeView"],
+    // "fullScreen",
+    "showBlocks",
+    "codeView",
+  ],
   ["preview", "print"],
 ];
 
@@ -122,6 +124,64 @@ editor.core.context.element.wysiwyg.addEventListener("touchend", function () {
   editor.core.context.element.wysiwyg.focus();
 });
 
+const viewport = window.visualViewport;
+let height = viewport.height;
+let device = "Desktop";
+
+function isMobileDevice() {
+  return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
+    navigator.userAgent
+  );
+}
+
+if (isMobileDevice()) {
+  // For mobile devices, use the maximum of inner height and viewport height
+  height = Math.max(window.innerHeight, viewport.height);
+} else {
+  // For desktop, just use the viewport height
+  height = viewport.height;
+}
+
+const editorContainer = document.getElementsByClassName("editor-container")[0];
+const seWrapper = document
+  .getElementsByClassName("sun-editor")[0]
+  .querySelector(".se-wrapper");
+
+window.visualViewport.addEventListener("resize", resizeHandler);
+
+function resizeHandler() {
+  // button.style.bottom = `${height - viewport.height + 10}px`;
+
+  editorContainer.style.height = `${viewport.height - 8}px`;
+  seWrapper.style.height = `${viewport.height - 68}px`;
+
+  // console.log("Height: ", height, " viewport.height", viewport.height);
+  // editor.setContents(`
+  //   <h3>Viewport Information:</h3>
+  //   <p><strong>Initial Height:</strong> ${height}px</p>
+  //   <p><strong>Current Viewport Height:</strong> ${viewport.height}px</p>
+  //   <p><strong>Difference:</strong> ${height - viewport.height}px</p>
+  //   <p><strong>Device:</strong> ${navigator.userAgent}</p>
+  //   <p><br>
+  //   </p>
+  //   <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et doloremagna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodoconsequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. <p>
+  //   <p><br>
+  //   </p>
+  //   <p>                       Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod temporincididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laborisnisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillumdolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officiadeserunt mollit anim id est laborum.</p>
+  //   <p><br>
+  //   </p>
+  //   <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et doloremagna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodoconsequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. <p>
+  //   <p><br>
+  //   </p>
+  //   <p>                       Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod temporincididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laborisnisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillumdolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officiadeserunt mollit anim id est laborum.</p>
+  //   <p><br>
+  //   </p>
+  //   <p><br>
+  //   </p>
+  //   <p>                    </p>
+  // `);
+}
+
 function loadContentFromFile(fileName) {
   fetch(`assets/${fileName}`)
     .then((response) => {
@@ -137,14 +197,74 @@ function loadContentFromFile(fileName) {
       console.error("Error loading content:", error);
       // Fallback content
       const fallbackContent = `
-                        <h1>Welcome to SunEditor</h1>
-                        <p>This is a fallback content. When running on a server, this will be replaced with content from the file.</p>
+                        <h1>Text editor demo - SunEditor</h1>
+                        
+                        <p>This is a comprehensive demonstration of SunEditor's capabilities. Feel free to experiment with the various formatting options and features available.</p>
+                        
+                        <h2>Text Formatting</h2>
+                        <p>You can make text <strong>bold</strong>, <em>italic</em>, <u>underlined</u>, or <strike>strikethrough</strike>. You can also use <sup>superscript</sup> and <sub>subscript</sub>.</p>
+                        
+                        <h2>Lists</h2>
+                        <h3>Unordered List:</h3>
                         <ul>
-                            <li>You can edit this content.</li>
-                            <li>Try out different formatting options.</li>
-                            <li>Experiment with inserting images or links.</li>
+                            <li>First item</li>
+                            <li>Second item</li>
+                            <li>Third item</li>
                         </ul>
-                        <p>                                                </p>
+                        
+                        <h3>Ordered List:</h3>
+                        <ol>
+                            <li>First item</li>
+                            <li>Second item</li>
+                            <li>Third item</li>
+                        </ol>
+                        
+                        <h2>Text Alignment</h2>
+                        <p style="text-align: left;">This text is left-aligned.</p>
+                        <p style="text-align: center;">This text is center-aligned.</p>
+                        <p style="text-align: right;">This text is right-aligned.</p>
+                        <p style="text-align: justify;">This text is justified. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                        
+                        <h2>Blockquote</h2>
+                        <blockquote>This is a blockquote. It can be used to highlight important information or quotes.</blockquote>
+                        
+                        <h2>Table</h2>
+                        <table style="border-collapse: collapse; width: 100%;">
+                            <thead>
+                                <tr>
+                                    <th style="border: 1px solid black; padding: 8px;">Header 1</th>
+                                    <th style="border: 1px solid black; padding: 8px;">Header 2</th>
+                                    <th style="border: 1px solid black; padding: 8px;">Header 3</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td style="border: 1px solid black; padding: 8px;">Row 1, Cell 1</td>
+                                    <td style="border: 1px solid black; padding: 8px;">Row 1, Cell 2</td>
+                                    <td style="border: 1px solid black; padding: 8px;">Row 1, Cell 3</td>
+                                </tr>
+                                <tr>
+                                    <td style="border: 1px solid black; padding: 8px;">Row 2, Cell 1</td>
+                                    <td style="border: 1px solid black; padding: 8px;">Row 2, Cell 2</td>
+                                    <td style="border: 1px solid black; padding: 8px;">Row 2, Cell 3</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        
+                        <h2>Links</h2>
+                        <p>You can add <a href="https://github.com/JiHong88/SunEditor" target="_blank">links to external websites</a>.</p>
+                        
+                        <h2>Images</h2>
+                        <p>You can insert images:</p>
+                        <img src="https://via.placeholder.com/300x200" alt="Placeholder Image" style="max-width: 100%; height: auto;">
+                        
+                        <h2>Code View</h2>
+                        <p>SunEditor also provides a code view for those who prefer to work directly with HTML:</p>
+                        <pre><code>&lt;p&gt;This is a code block. You can switch to code view to edit HTML directly.&lt;/p&gt;</code></pre>
+                        
+                        <h2>Experiment!</h2>
+                        <p>Feel free to edit this content, try out different formatting options, and explore all the features SunEditor has to offer!</p>
+
                         <p><br>
                         </p>
                         <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
@@ -173,61 +293,3 @@ editor.onload = function (core) {
   console.log("Attempting to load content file...");
   loadContentFromFile("content.html");
 };
-
-
-
-const viewport = window.visualViewport;
-let height = viewport.height;
-let device = "Desktop";
-
-function isMobileDevice() {
-  return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
-}
-
-if (isMobileDevice()) {
-  // For mobile devices, use the maximum of inner height and viewport height
-  height = Math.max(window.innerHeight, viewport.height);
-} else {
-  // For desktop, just use the viewport height
-  height = viewport.height;
-}
-
-const editorContainer = document.getElementsByClassName("editor-container")[0];
-const seWrapper = document
-  .getElementsByClassName("sun-editor")[0]
-  .querySelector(".se-wrapper");
-
-window.visualViewport.addEventListener("resize", resizeHandler);
-
-function resizeHandler() {
-  // button.style.bottom = `${height - viewport.height + 10}px`;
-
-  editorContainer.style.height = `${viewport.height - 8}px`;
-  seWrapper.style.height = `${viewport.height - 68}px`;
-
-  console.log("Height: ", height, " viewport.height", viewport.height);
-  editor.setContents(`
-    <h3>Viewport Information:</h3>
-    <p><strong>Initial Height:</strong> ${height}px</p>
-    <p><strong>Current Viewport Height:</strong> ${viewport.height}px</p>
-    <p><strong>Difference:</strong> ${height - viewport.height}px</p>
-    <p><strong>Device:</strong> ${navigator.userAgent}</p>
-    <p><br>
-    </p>
-    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et doloremagna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodoconsequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. <p>
-    <p><br>
-    </p>
-    <p>                       Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod temporincididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laborisnisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillumdolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officiadeserunt mollit anim id est laborum.</p>
-    <p><br>
-    </p>
-    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et doloremagna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodoconsequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. <p>
-    <p><br>
-    </p>
-    <p>                       Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod temporincididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laborisnisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillumdolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officiadeserunt mollit anim id est laborum.</p>
-    <p><br>
-    </p>
-    <p><br>
-    </p>
-    <p>                    </p>
-  `);
-}
