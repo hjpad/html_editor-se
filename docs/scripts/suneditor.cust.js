@@ -146,6 +146,10 @@ const editorContainer = document.getElementsByClassName("editor-container")[0];
 const seWrapper = document
   .getElementsByClassName("sun-editor")[0]
   .querySelector(".se-wrapper");
+const seWrapperCode = document
+  .getElementsByClassName("sun-editor")[0]
+  .querySelector(".se-wrapper")
+  .querySelector(".se-wrapper-code");
 
 window.visualViewport.addEventListener("resize", resizeHandler);
 
@@ -154,6 +158,7 @@ function resizeHandler() {
 
   editorContainer.style.height = `${viewport.height - 8}px`;
   seWrapper.style.height = `${viewport.height - 68}px`;
+  seWrapperCode.style.height = `${viewport.height - 68}px`;
 
   // console.log("Height: ", height, " viewport.height", viewport.height);
   // editor.setContents(`
